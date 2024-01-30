@@ -1,12 +1,12 @@
 from guardrails import Guard
 from pydantic import BaseModel, Field
-from validator import RegexMatch
+from validator import CsvMatch
 
 
 class ValidatorTestObject(BaseModel):
     test_val: str = Field(
         validators=[
-            RegexMatch(regex="a.*", match_type="fullmatch", on_fail="exception")
+            CsvMatch(csv="header1,header2\nrow1col1,row1col2\n", on_fail="exception")
         ]
     )
 

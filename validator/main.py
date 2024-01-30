@@ -13,46 +13,39 @@ from guardrails.validator_base import (
 )
 
 
-@register_validator(name="guardrails/regex_match", data_type="string")
-class RegexMatch(Validator):
-    """Validates that a value matches a regular expression.
+@register_validator(name="guardrails/csv_match", data_type="string")
+class CsvMatch(Validator):
+    """Validates that a value matches a CSV text string.
 
     **Key Properties**
 
     | Property                      | Description                       |
     | ----------------------------- | --------------------------------- |
-    | Name for `format` attribute   | `regex_match`                     |
+    | Name for `format` attribute   | `csv_match`                     |
     | Supported data types          | `string`                          |
     | Programmatic fix              | Generate a string that matches the regular expression |
 
     Args:
-        regex: Str regex pattern
-        match_type: Str in {"search", "fullmatch"} for a regex search or full-match option
+        csv: Str csv text contents
+        delimiter: String delimiter for csv
     """  # noqa
 
     def __init__(
         self,
-        regex: str,
-        match_type: Optional[str] = None,
+        csv: str,
+        delimiter: str = ",",
         on_fail: Optional[Callable] = None,
     ):
-        # todo -> something forces this to be passed as kwargs and therefore xml-ized.
-        # match_types = ["fullmatch", "search"]
-
-        if match_type is None:
-            match_type = "fullmatch"
-        assert match_type in [
-            "fullmatch",
-            "search",
-        ], 'match_type must be in ["fullmatch", "search"]'
-
-        super().__init__(on_fail=on_fail, match_type=match_type, regex=regex)
-        self._regex = regex
-        self._match_type = match_type
+        super().__init__(on_fail=on_fail, csv=csv)
+        self._csv = csv
+        self._delimiter = delimiter
 
     def validate(self, value: Any, metadata: Dict) -> ValidationResult:
-        p = re.compile(self._regex)
         """Validates that value matches the provided regular expression."""
+
+        # TODO: Check that line lengths match
+        # TODO: Check that quoted strings match
+
         # Pad matching string on either side for fix
         # example if we are performing a regex search
         str_padding = (
