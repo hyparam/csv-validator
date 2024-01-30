@@ -1,9 +1,9 @@
 [project]
-name = "regexmatch"
+name = "csvmatch"
 version = "0.0.0"
-description = "Template repo for Guardrails Hub validators."
+description = "A CSV validator for Guardrails AI."
 authors = [
-    {name = "Guardrails AI", email = "contact@guardrailsai.com"}
+    {name = "Hyperparam", email = "kenny@hyperparam.app"}
 ]
 license = {file = "LICENSE"}
 readme = "README.md"
