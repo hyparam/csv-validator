@@ -1,5 +1,7 @@
 # Guardrails CSV Validator
 
+![csv-validator](csv-validator.jpg)
+
 A CSV validator for Guardrails AI.
 
 ## How to create a Guardrails Validator
