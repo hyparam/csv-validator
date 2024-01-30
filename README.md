@@ -1,5 +1,6 @@
-# Guardrails Validator Template
-Template repository that hosts a sample validator to be used within GuardrailsHub.
+# Guardrails CSV Validator
+
+A CSV validator for Guardrails AI.
 
 ## How to create a Guardrails Validator
 - On the top right of the page, click "Use this template", select "create a new repository"  and set a name for the package.
