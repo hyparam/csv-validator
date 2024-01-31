@@ -41,7 +41,7 @@ class CsvMatch(Validator):
         """Validates that value matches the provided regular expression."""
 
         try:
-            csv = parse_csv(self._csv)
+            rows = parse_csv(self._csv)
         except Exception as e:
             return FailResult(
                 error_message=f"Failed to parse CSV: {e}",
@@ -49,9 +49,9 @@ class CsvMatch(Validator):
             )
         # TODO: Check that quoted strings match
 
-        # TODO: Check that line lengths match
-        first_row_length = len(csv[0])
-        for row in csv:
+        # Check that line lengths match
+        first_row_length = len(rows[0])
+        for row in rows:
             if len(row) != first_row_length:
                 return FailResult(
                     error_message=f"CSV has rows of different lengths",
@@ -61,4 +61,4 @@ class CsvMatch(Validator):
         return PassResult()
 
     def to_prompt(self, with_keywords: bool = True) -> str:
-        return "results should match " + self._regex
+        return "results should match " + self._csv

@@ -5,11 +5,9 @@
 A CSV validator for Guardrails AI.
 
 ## How to create a Guardrails Validator
-- On the top right of the page, click "Use this template", select "create a new repository"  and set a name for the package.
 - Modify the class in [validator/main.py](validator/main.py) with source code for the new validator
     - Make sure that the class still inherits from `Validator` and has the `register_validator` annotation.
     - Set the `name` in the `register_validator` to the name of the repo and set the appropriate data type.
-- Change [validator/__init__.py](validator/__init__.py) to your new Validator classname instead of RegexMatch
 - Locally test the validator with the test instructions below
 
 * Note: This package uses a pyproject.toml file, on first run, run `pip install .` to pull down and install all dependencies
