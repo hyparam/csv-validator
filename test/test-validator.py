@@ -6,7 +6,7 @@ from validator import CsvMatch
 class ValidatorTestObject(BaseModel):
     test_val: str = Field(
         validators=[
-            CsvMatch(csv="header1,header2\nrow1col1,row1col2\n", on_fail="exception")
+            CsvMatch(delimiter=",", on_fail="exception")
         ]
     )
 

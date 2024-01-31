@@ -23,42 +23,39 @@ class CsvMatch(Validator):
     | Programmatic fix              | Generate a string that matches the regular expression |
 
     Args:
-        csv: Str csv text contents
         delimiter: String delimiter for csv
     """  # noqa
 
     def __init__(
         self,
-        csv: str,
         delimiter: str = ",",
         on_fail: Optional[Callable] = None,
     ):
-        super().__init__(on_fail=on_fail, csv=csv)
-        self._csv = csv
+        super().__init__(on_fail=on_fail, delimiter=delimiter)
         self._delimiter = delimiter
 
     def validate(self, value: Any, metadata: Dict) -> ValidationResult:
         """Validates that value matches the provided regular expression."""
-
         try:
-            rows = parse_csv(self._csv)
+            rows = parse_csv(value)
         except Exception as e:
             return FailResult(
                 error_message=f"Failed to parse CSV: {e}",
-                fix_value=self._csv,
+                fix_value="",
             )
         # TODO: Check that quoted strings match
 
         # Check that line lengths match
+        print('WTF', rows)
         first_row_length = len(rows[0])
         for row in rows:
             if len(row) != first_row_length:
                 return FailResult(
                     error_message=f"CSV has rows of different lengths",
-                    fix_value=self._csv,
+                    fix_value="",
                 )
 
         return PassResult()
 
     def to_prompt(self, with_keywords: bool = True) -> str:
-        return "results should match " + self._csv
+        return "results should match "
