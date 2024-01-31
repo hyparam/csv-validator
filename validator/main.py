@@ -1,8 +1,5 @@
-import re
-import string
 from typing import Any, Callable, Dict, Optional
-
-import rstr
+from validator.parse_csv import parse_csv
 
 from guardrails.validator_base import (
     FailResult,
@@ -43,21 +40,24 @@ class CsvMatch(Validator):
     def validate(self, value: Any, metadata: Dict) -> ValidationResult:
         """Validates that value matches the provided regular expression."""
 
-        # TODO: Check that line lengths match
+        try:
+            csv = parse_csv(self._csv)
+        except Exception as e:
+            return FailResult(
+                error_message=f"Failed to parse CSV: {e}",
+                fix_value=self._csv,
+            )
         # TODO: Check that quoted strings match
 
-        # Pad matching string on either side for fix
-        # example if we are performing a regex search
-        str_padding = (
-            "" if self._match_type == "fullmatch" else rstr.rstr(string.ascii_lowercase)
-        )
-        self._fix_str = str_padding + rstr.xeger(self._regex) + str_padding
+        # TODO: Check that line lengths match
+        first_row_length = len(csv[0])
+        for row in csv:
+            if len(row) != first_row_length:
+                return FailResult(
+                    error_message=f"CSV has rows of different lengths",
+                    fix_value=self._csv,
+                )
 
-        if not getattr(p, self._match_type)(value):
-            return FailResult(
-                error_message=f"Result must match {self._regex}",
-                fix_value=self._fix_str,
-            )
         return PassResult()
 
     def to_prompt(self, with_keywords: bool = True) -> str:

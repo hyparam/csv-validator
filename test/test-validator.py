@@ -12,9 +12,8 @@ class ValidatorTestObject(BaseModel):
 
 
 TEST_OUTPUT = """
-{
-  "test_val": "a test value"
-}
+header1,header2
+row1col1,row1col2
 """
 
 
@@ -26,9 +25,8 @@ print("validated output: ", guarded_output)
 
 
 TEST_FAIL_OUTPUT = """
-{
-"test_val": "b test value"
-}
+header1,header2
+row1col1
 """
 
 try:
