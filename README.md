@@ -2,6 +2,8 @@
 
 ![csv-validator](csv-validator.jpg)
 
+[![apache license](https://img.shields.io/badge/License-Apache-blue.svg)](https://opensource.org/licenses/Apache-2-0)
+
 A CSV validator for Guardrails AI.
 
 ## How to create a Guardrails Validator
