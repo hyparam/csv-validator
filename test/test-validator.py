@@ -1,36 +1,21 @@
+# to run these, run
+# pytest test/test-validator.py
+
 from guardrails import Guard
-from pydantic import BaseModel, Field
 from validator import CsvMatch
 
+# We use 'refrain' as the validator's fail action,
+#  so we expect failures to always result in a guarded output of None
+# Learn more about corrective actions here:
+#  https://www.guardrailsai.com/docs/concepts/output/#%EF%B8%8F-specifying-corrective-actions
+guard = Guard.from_string(validators=[CsvMatch(delimiter=",", on_fail="refrain")])
 
-class ValidatorTestObject(BaseModel):
-    test_val: str = Field(
-        validators=[
-            CsvMatch(delimiter=",", on_fail="exception")
-        ]
-    )
+def test_pass():
+  test_output = "header1,header2\nrow1col1,row1col2"
+  raw_output, guarded_output, *rest = guard.parse(test_output)
+  assert(guarded_output is test_output)
 
-
-TEST_OUTPUT = """
-header1,header2
-row1col1,row1col2
-"""
-
-
-guard = Guard.from_pydantic(output_class=ValidatorTestObject)
-
-raw_output, guarded_output, *rest = guard.parse(TEST_OUTPUT)
-
-print("validated output: ", guarded_output)
-
-
-TEST_FAIL_OUTPUT = """
-header1,header2
-row1col1
-"""
-
-try:
-  guard.parse(TEST_FAIL_OUTPUT)
-  print ("Failed to fail validation when it was supposed to")
-except (Exception):
-  print ('Successfully failed validation when it was supposed to')
+def test_fail():
+  test_output = "header1,header2\nrow1col1"
+  raw_output, guarded_output, *rest = guard.parse(test_output)
+  assert(guarded_output is None)

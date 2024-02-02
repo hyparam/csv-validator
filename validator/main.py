@@ -46,7 +46,6 @@ class CsvMatch(Validator):
         # TODO: Check that quoted strings match
 
         # Check that line lengths match
-        print('WTF', rows)
         first_row_length = len(rows[0])
         for row in rows:
             if len(row) != first_row_length:
