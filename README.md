@@ -2,17 +2,29 @@
 
 ![csv-validator](csv-validator.jpg)
 
-[![apache license](https://img.shields.io/badge/License-Apache-blue.svg)](https://opensource.org/licenses/Apache-2-0)
+[![apache license](https://img.shields.io/badge/License-Apache2-blue.svg)](https://opensource.org/licenses/Apache-2-0)
 
-A CSV validator for Guardrails AI.
+A CSV validator for [Guardrails AI](https://www.guardrailsai.com/).
 
-## How to create a Guardrails Validator
-- Modify the class in [validator/main.py](validator/main.py) with source code for the new validator
-    - Make sure that the class still inherits from `Validator` and has the `register_validator` annotation.
-    - Set the `name` in the `register_validator` to the name of the repo and set the appropriate data type.
-- Locally test the validator with the test instructions below
+This validator checks for various CSV issues such as mismatched column lengths, or mismatched quote delimiters.
 
-* Note: This package uses a pyproject.toml file, on first run, run `pip install .` to pull down and install all dependencies
+## Guardrails
+
+Guardrails AI is the leading open-source framework to define and enforce assurance for LLM applications. It offers:
+
+- Framework for creating custom validations at an application level
+- Orchestration of prompting → verification → re-prompting
+- Library of commonly used validators for multiple use cases
+- Specification language for communicating requirements to LLM
+
+## Under the hood
+
+Guardrails provides an object definition called a Rail for enforcing a specification on an LLM output, and a lightweight wrapper called a Guard around LLM API calls to implement this spec.
+
+1. `rail`` (Reliable AI markup Language) files for specifying structure and type information, validators and corrective actions over LLM outputs. The concept of a Rail has evolved from markup - Rails can be defined in either Pydantic or RAIL for structured outputs, or directly in Python for string outputs.
+
+2. Guard wraps around LLM API calls to structure, validate and correct the outputs.
+
 
 ### Testing and using your validator
 - Open [test/test-validator.py](test/test-validator.py) to test your new validator 
@@ -20,15 +32,3 @@ A CSV validator for Guardrails AI.
 - Modify the TEST_OUTPUT and TEST_FAIL_OUTPUT accordingly
 - Run `python test/test-validator.py` via terminal, make sure the returned output reflects the input object 
 - Write advanced tests for failures, etc.
-
-## Upload your validator to the validator hub
-- Update the [pyproject.toml](pyproject.toml) file and make necessary changes as follows:
-    - Update the `name` field to the name of your validator
-    - Update the `description` field to a short description of your validator
-    - Update the `authors` field to your name and email
-    - Add/update the `dependencies` field to include all dependencies your validator needs.
-- If there are are any post-installation steps such as downloading tokenizers, logging into huggingface etc., update the [post-install.py](validator/post-install.py) file accordingly.
-- You can add additional files to the [validator](validator) directory, but don't rename any existing files/directories.
-    - e.g. Add any environment variables (without the values, just the keys) to the [.env](.env) file.
-- Ensure that there are no other dependencies or any additional steps required to run your validator.
-- Fill out this [form](https://forms.gle/nmxyKwzjypaqvWxbA) to get your new validator onboarded!
