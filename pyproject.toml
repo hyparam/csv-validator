@@ -1,5 +1,5 @@
 [project]
-name = "csvmatch"
+name = "csv_validator"
 version = "0.0.0"
 description = "A CSV validator for Guardrails AI."
 authors = [
