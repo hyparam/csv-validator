@@ -1,6 +1,12 @@
-# Overview
+# Guardrails CSV Validator
 
-| Developed by | Hyparam |
+![csv-validator](csv-validator.jpg)
+
+[![apache license](https://img.shields.io/badge/License-Apache2-blue.svg)](https://opensource.org/licenses/Apache-2-0)
+
+|||
+|---| --- |
+| Developed by | Hyperparam |
 | Date of development | Feb 15, 2024 |
 | Validator type | Format |
 | Blog |  |
@@ -8,6 +14,9 @@
 | Input/Output | Output |
 
 # Description
+
+A CSV validator for [Guardrails AI](https://www.guardrailsai.com/).
+
 This validator checks for various CSV issues such as mismatched column lengths, or mismatched quote delimiters.
 
 ## Requirements
