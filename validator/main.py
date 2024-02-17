@@ -1,5 +1,5 @@
 from typing import Any, Callable, Dict, Optional
-from validator.parse_csv import parse_csv
+from .parse_csv import parse_csv
 
 from guardrails.validator_base import (
     FailResult,
@@ -10,7 +10,7 @@ from guardrails.validator_base import (
 )
 
 
-@register_validator(name="hyparam/valid_csv", data_type="string")
+@register_validator(name="hyparam/csv_validator", data_type="string")
 class CsvMatch(Validator):
     """Validates that a value matches a CSV text string.
 
@@ -34,7 +34,7 @@ class CsvMatch(Validator):
         super().__init__(on_fail=on_fail, delimiter=delimiter)
         self._delimiter = delimiter
 
-    def validate(self, value: Any, metadata: Dict) -> ValidationResult:
+    def validate(self, value: Any, metadata: Dict = {}) -> ValidationResult:
         """Validates that value matches the provided regular expression."""
         try:
             rows = parse_csv(value)

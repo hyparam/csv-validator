@@ -1,5 +1,5 @@
 [project]
-name = "csvmatch"
+name = "csv_validator"
 version = "0.0.0"
 description = "A CSV validator for Guardrails AI."
 authors = [
@@ -7,9 +7,7 @@ authors = [
 ]
 license = {file = "LICENSE"}
 readme = "README.md"
-requires-python = ">= 3.8"
+requires-python = ">= 3.8.1"
 dependencies = [
-    "rstr",
-    "guardrails-ai>=0.3.2",
-    "pydantic>=2.4.2"
+    "guardrails-ai>=0.4.0",
 ]
