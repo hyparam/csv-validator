@@ -92,7 +92,7 @@ Initializes a new instance of the CsvMatch class.
 </ul>
 <br/>
 
-**`validate(self, value, metadata) → ValidationResult`**
+**`validate(self, value, metadata) -> ValidationResult`**
 <ul>
 Validates the given `value` using the rules defined in this validator, relying on the `metadata` provided to customize the validation process. This method is automatically invoked by `guard.parse(...)`, ensuring the validation logic is applied to the input data.
 
