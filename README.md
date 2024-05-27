@@ -1,4 +1,8 @@
-# Overview
+# Guardrails CSV Validator
+
+![csv-validator](csv-validator.jpg)
+
+[![apache license](https://img.shields.io/badge/License-Apache2-blue.svg)](https://opensource.org/licenses/Apache-2-0)
 
 | Developed by | Hyperparam |
 | Date of development | Feb 15, 2024 |
